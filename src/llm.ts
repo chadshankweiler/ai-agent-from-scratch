@@ -1,3 +1,4 @@
+import { systemPrompt } from '../systemPrompt'
 import { AIMessage } from '../types'
 import { openai } from './ai'
 import { zodFunction } from 'openai/helpers/zod'
@@ -14,7 +15,7 @@ export const runLLM = async ({
         model: 'gpt-4o-mini',
         temperature: 0.1,
         store: true,
-        messages,
+        messages: [{ role: "system", content: systemPrompt}, ...messages],
         tools: formattedtools,
         tool_choice: 'auto',
         parallel_tool_calls: false,
